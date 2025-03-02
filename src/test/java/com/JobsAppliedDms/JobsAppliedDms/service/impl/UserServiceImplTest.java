@@ -16,6 +16,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Optional;
@@ -40,6 +41,7 @@ public class UserServiceImplTest
     @InjectMocks
     private UserServiceImpl userService;
 
+    @Mock
     private User user;
     private UserDto userDto;
     private LoginDto loginDto;
@@ -133,9 +135,11 @@ public class UserServiceImplTest
         when(httpSession.getAttribute("userId")).thenReturn(1L);
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 
+        System.out.println("User ID in session: " + httpSession.getAttribute("userId")); // Debugging line
+
         User result = userService.getLoggedInUser(httpSession);
 
-        assertNotNull(result);
+        assertNotNull(result, "Expected user to be found, but got null");
         assertEquals(user.getId(), result.getId());
     }
 

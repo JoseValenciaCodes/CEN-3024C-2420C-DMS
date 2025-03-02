@@ -24,9 +24,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+/*
+* ApplicationServiceImplTest
+* Unit Tests for methods of the ApplicationService Implementation
+* */
+
 @ExtendWith(MockitoExtension.class)
 public class ApplicationServiceImplTest
 {
+    // Start out Mock dependencies
     @Mock
     private ApplicationRepository applicationRepository;
     @Mock
@@ -39,10 +45,14 @@ public class ApplicationServiceImplTest
     @InjectMocks
     private ApplicationServiceImpl applicationService;
 
+    @Mock
     private User user;
+    @Mock
     private Job job;
+    @Mock
     private Application application;
 
+    // Initialize with some mockup data to run tests
     @BeforeEach
     void setUp() {
         user = new User();
@@ -63,6 +73,7 @@ public class ApplicationServiceImplTest
         when(session.getAttribute("userId")).thenReturn(1L);
     }
 
+    // Run test to successfully review if getting all applications is possible
     @Test
     void getAllApplications_ShouldReturnApplications() {
         when(applicationRepository.findAll()).thenReturn(List.of(application));
@@ -73,6 +84,7 @@ public class ApplicationServiceImplTest
         assertEquals(100L, applications.get(0).getId());
     }
 
+    // Run test to successfully review if getting an application by ID is possible
     @Test
     void getApplicationById_ValidId_ShouldReturnApplication() {
         when(applicationRepository.findAll()).thenReturn(List.of(application));
@@ -83,6 +95,7 @@ public class ApplicationServiceImplTest
         assertEquals(100L, result.getId());
     }
 
+    // Run test to check if providing invalid input to getting an application by ID throws an exception
     @Test
     void getApplicationById_InvalidId_ShouldThrowException() {
         when(applicationRepository.findAll()).thenReturn(List.of());
@@ -90,6 +103,7 @@ public class ApplicationServiceImplTest
         assertThrows(ApplicationNotFound.class, () -> applicationService.getApplicationById(session, 200L));
     }
 
+    // Check if adding an application is successful
     @Test
     void addApplication_ShouldSaveAndReturnApplication() {
         ApplicationDto dto = new ApplicationDto(100L, LocalDateTime.now(), "Pending", false, "https://resumes.com/resume.pdf", 1L, 10L);
@@ -103,6 +117,7 @@ public class ApplicationServiceImplTest
         assertEquals(100L, result.getId());
     }
 
+    // Check if deleting an application is successful
     @Test
     void deleteApplication_ValidId_ShouldDeleteApplication() {
         when(applicationRepository.findAll()).thenReturn(List.of(application));

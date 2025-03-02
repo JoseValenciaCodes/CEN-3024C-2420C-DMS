@@ -127,6 +127,6 @@ public class UserServiceImpl implements UserService
         // Get the currently registered user
         Long userId = (Long) httpSession.getAttribute("userId");
 
-        return userId == null ? userRepository.findById(userId).orElse(null) : null;
+        return userId == null ? null : userRepository.findById(userId).orElse(null);
     }
 }
