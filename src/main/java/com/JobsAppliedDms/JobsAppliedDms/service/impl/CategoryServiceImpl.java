@@ -54,6 +54,40 @@ public class CategoryServiceImpl implements CategoryService
     }
 
     @Override
+    public List<CategoryPayload> addCategoriesInBulk(List<CategoryDto> categoryDtos)
+    {
+        List<Category> categories = new ArrayList<Category>();
+        List<CategoryPayload> categoryPayloadList = new ArrayList<CategoryPayload>();
+
+        for (CategoryDto categoryDto : categoryDtos)
+        {
+            categories.add(new Category(
+                    categoryDto.getId(),
+                    categoryDto.getName(),
+                    categoryDto.getDescription(),
+                    categoryDto.getAvgSalary(),
+                    categoryDto.getDemand()
+            ));
+        }
+
+        categoryRepository.saveAll(categories);
+
+        for (Category category : categories)
+        {
+            categoryPayloadList.add(new CategoryPayload(
+                    category.getId(),
+                    category.getName(),
+                    category.getDescription(),
+                    category.getAvgSalary(),
+                    category.getDemand(),
+                    category.getCreatedAt()
+            ));
+        }
+
+        return categoryPayloadList;
+    }
+
+    @Override
     public CategoryPayload getCategoryById(Long id) {
         Category category = categoryRepository.findById(id).orElseThrow(
                 () -> new CategoryNotFound("The category of id " + id + " could not be found")

@@ -74,4 +74,16 @@ public class CategoryPayload
     public void setDemand(Integer demand) {
         this.demand = demand;
     }
+
+    @Override
+    public String toString() {
+        return "CategoryPayload(" +
+                "\nid=" + id +
+                "\n, name='" + name + '\'' +
+                "\n, description='" + description + '\'' +
+                "\n, avgSalary=" + avgSalary +
+                "\n, demand=" + demand +
+                "\n, createdAt=" + createdAt +
+                ')';
+    }
 }

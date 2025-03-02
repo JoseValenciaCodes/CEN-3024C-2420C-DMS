@@ -15,6 +15,7 @@ import java.util.List;
 public interface CategoryService
 {
     List<CategoryPayload> getAllCategories();
+    List<CategoryPayload> addCategoriesInBulk(List<CategoryDto> categoryDtos);
     CategoryPayload getCategoryById(Long id);
     CategoryPayload addCategory(CategoryDto categoryDto);
     CategoryPayload updateCategoryById(Long id, CategoryDto categoryDto);

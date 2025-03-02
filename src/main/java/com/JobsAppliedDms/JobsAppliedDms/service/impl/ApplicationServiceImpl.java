@@ -170,12 +170,14 @@ public class ApplicationServiceImpl implements ApplicationService
         List<Application> userApplications = applicationRepository.findAll().stream().filter(application -> Objects.equals(application.getUser().getId(), userId)).toList();
 
         // Get the application of id
-        Application application = userApplications.stream().filter(application1 -> application1.getId() == id).toList().get(0);
+        List<Application> filteredApplications = userApplications.stream().filter(application1 -> application1.getId() == id).toList();
 
-        if (application == null)
+        if (filteredApplications.isEmpty())
         {
             throw new ApplicationNotFound("Application of id " + id + " could not be found");
         }
+
+        Application application = filteredApplications.get(0);
 
         return new ApplicationPayload(
                 application.getId(),
