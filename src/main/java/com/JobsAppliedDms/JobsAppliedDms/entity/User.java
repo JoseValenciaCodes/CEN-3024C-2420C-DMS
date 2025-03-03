@@ -66,7 +66,7 @@ public class User
     }
 
     /* User Relationships */
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Application> applications = new ArrayList<>();
 
     public User() {}

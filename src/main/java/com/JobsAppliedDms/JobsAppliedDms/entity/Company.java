@@ -60,7 +60,7 @@ public class Company
     }
 
     /* Company Relationships */
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Job> jobs = new ArrayList<>();
 
     public Company() {}

@@ -203,7 +203,11 @@ public class ApplicationServiceImpl implements ApplicationService
 
         Application application = new Application();
 
-        application.setId(applicationDto.getId());
+        if (applicationDto.getId() != null)
+        {
+            application.setId(applicationDto.getId());
+        }
+
         application.setAppliedAt(applicationDto.getAppliedAt());
         application.setStatus(applicationDto.getStatus());
         application.setShortlisted(applicationDto.getShortlisted());
@@ -211,17 +215,17 @@ public class ApplicationServiceImpl implements ApplicationService
         application.setUser(user);
         application.setJob(job);
 
-        applicationRepository.save(application);
+        Application newApplication = applicationRepository.save(application);
 
         return new ApplicationPayload(
-                application.getId(),
-                application.getAppliedAt(),
-                application.getStatus(),
-                application.getShortlisted(),
-                application.getResumeLink(),
-                application.getUser().getId(),
-                application.getJob().getId(),
-                application.getCreatedAt()
+                newApplication.getId(),
+                newApplication.getAppliedAt(),
+                newApplication.getStatus(),
+                newApplication.getShortlisted(),
+                newApplication.getResumeLink(),
+                newApplication.getUser().getId(),
+                newApplication.getJob().getId(),
+                newApplication.getCreatedAt()
         );
     }
 
@@ -250,17 +254,17 @@ public class ApplicationServiceImpl implements ApplicationService
         application.setResumeLink(applicationDto.getResumeLink());
         application.setJob(job);
 
-        applicationRepository.save(application);
+        Application updatedApplication = applicationRepository.save(application);
 
         return new ApplicationPayload(
-                application.getId(),
-                application.getAppliedAt(),
-                application.getStatus(),
-                application.getShortlisted(),
-                application.getResumeLink(),
-                application.getUser().getId(),
-                application.getJob().getId(),
-                application.getCreatedAt()
+                updatedApplication.getId(),
+                updatedApplication.getAppliedAt(),
+                updatedApplication.getStatus(),
+                updatedApplication.getShortlisted(),
+                updatedApplication.getResumeLink(),
+                updatedApplication.getUser().getId(),
+                updatedApplication.getJob().getId(),
+                updatedApplication.getCreatedAt()
         );
     }
 

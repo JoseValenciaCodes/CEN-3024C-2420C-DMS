@@ -50,7 +50,7 @@ public class Category
     }
 
     /* Category Relationships */
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Job> jobs = new ArrayList<>();
 
     public Category() {}
