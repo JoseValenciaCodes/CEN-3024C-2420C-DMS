@@ -197,16 +197,11 @@ public class ApplicationServiceImpl implements ApplicationService
         Long userId = getUserIdFromSession(httpSession);
 
         User user = userRepository.findById(userId).orElse(null);
-        Job job = jobRepository.findById(applicationDto.getId()).orElseThrow(
+        Job job = jobRepository.findById(applicationDto.getJobId()).orElseThrow(
                 () -> new JobNotFound("Job of id " + applicationDto.getJobId() + " could not be found")
         );
 
         Application application = new Application();
-
-        if (applicationDto.getId() != null)
-        {
-            application.setId(applicationDto.getId());
-        }
 
         application.setAppliedAt(applicationDto.getAppliedAt());
         application.setStatus(applicationDto.getStatus());
@@ -244,7 +239,7 @@ public class ApplicationServiceImpl implements ApplicationService
             throw new ApplicationNotFound("Application of id " + applicationDto.getId() + " could not be found");
         }
 
-        Job job = jobRepository.findById(applicationDto.getId()).orElseThrow(
+        Job job = jobRepository.findById(applicationDto.getJobId()).orElseThrow(
                 () -> new JobNotFound("Job of id " + applicationDto.getJobId() + " could not be found")
         );
 
