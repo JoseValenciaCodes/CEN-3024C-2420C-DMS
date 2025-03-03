@@ -37,12 +37,14 @@ public class CategoryServiceImplTest
     private Category category;
     private CategoryDto categoryDto;
 
+    // Set up mock data before unit tests
     @BeforeEach
     void setUp() {
         category = new Category(1L, "IT", "Technology Jobs", 80000.0, 5);
         categoryDto = new CategoryDto(1L, "IT", "Technology Jobs", 80000.0, 5);
     }
 
+    // Test successfully adding a category
     @Test
     void testGetAllCategories() {
         when(categoryRepository.findAll()).thenReturn(Arrays.asList(category));
@@ -54,6 +56,7 @@ public class CategoryServiceImplTest
         verify(categoryRepository, times(1)).findAll();
     }
 
+    // Test getting a found category by ID
     @Test
     void testGetCategoryById_Found() {
         when(categoryRepository.findById(1L)).thenReturn(Optional.of(category));
@@ -65,6 +68,7 @@ public class CategoryServiceImplTest
         verify(categoryRepository, times(1)).findById(1L);
     }
 
+    // Test not getting a category by ID due to CategoryNotFound Error
     @Test
     void testGetCategoryById_NotFound() {
         when(categoryRepository.findById(1L)).thenReturn(Optional.empty());
@@ -73,6 +77,7 @@ public class CategoryServiceImplTest
         verify(categoryRepository, times(1)).findById(1L);
     }
 
+    // Test successfully adding a category
     @Test
     void testAddCategory() {
         when(categoryRepository.save(any(Category.class))).thenReturn(category);
@@ -84,6 +89,7 @@ public class CategoryServiceImplTest
         verify(categoryRepository, times(1)).save(any(Category.class));
     }
 
+    // Test successfully updating a category by ID
     @Test
     void testUpdateCategoryById_Found() {
         when(categoryRepository.findById(1L)).thenReturn(Optional.of(category));
@@ -97,6 +103,7 @@ public class CategoryServiceImplTest
         verify(categoryRepository, times(1)).save(any(Category.class));
     }
 
+    // Test Being Unable to update a category because it was not found
     @Test
     void testUpdateCategoryById_NotFound() {
         when(categoryRepository.findById(1L)).thenReturn(Optional.empty());
@@ -105,6 +112,7 @@ public class CategoryServiceImplTest
         verify(categoryRepository, times(1)).findById(1L);
     }
 
+    // Test successfully deleting a category
     @Test
     void testDeleteCategoryById_Found() {
         when(categoryRepository.findById(1L)).thenReturn(Optional.of(category));
@@ -118,6 +126,7 @@ public class CategoryServiceImplTest
         verify(categoryRepository, times(1)).delete(category);
     }
 
+    // Test failing to delete a category because it was not found
     @Test
     void testDeleteCategoryById_NotFound() {
         when(categoryRepository.findById(1L)).thenReturn(Optional.empty());

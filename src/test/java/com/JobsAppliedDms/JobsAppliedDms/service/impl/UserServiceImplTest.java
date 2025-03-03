@@ -25,10 +25,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+/* UserServiceImplTest
+* Unit Tests to test the UserService Implementation
+* */
+
 @ExtendWith(MockitoExtension.class)
 public class UserServiceImplTest
 {
-
+    // Mock dependencies and attributes
     @Mock
     private UserRepository userRepository;
 
@@ -46,6 +50,7 @@ public class UserServiceImplTest
     private UserDto userDto;
     private LoginDto loginDto;
 
+    // Set up data in order to make unit tests on user
     @BeforeEach
     void setUp() {
         user = new User();
@@ -68,6 +73,7 @@ public class UserServiceImplTest
         loginDto = new LoginDto("john@example.com", "Password5");
     }
 
+    // Test out we can successfully register a user
     @Test
     void registerUser_ShouldRegisterSuccessfully() {
         when(userRepository.existsByEmail(userDto.getEmail())).thenReturn(false);
@@ -82,6 +88,7 @@ public class UserServiceImplTest
         verify(httpSession, times(1)).setAttribute("userId", user.getId());
     }
 
+    // Test out an exception is thrown if the user tries to register again
     @Test
     void registerUser_ShouldThrowUserAlreadyRegistered() {
         when(userRepository.existsByEmail(userDto.getEmail())).thenReturn(true);
@@ -91,6 +98,7 @@ public class UserServiceImplTest
         verify(userRepository, never()).save(any(User.class));
     }
 
+    // Test out successful login
     @Test
     void loginUser_ShouldLoginSuccessfully() {
         when(userRepository.findByEmail(loginDto.getEmail())).thenReturn(Optional.of(user));
@@ -103,6 +111,7 @@ public class UserServiceImplTest
         verify(httpSession, times(1)).setAttribute("userId", user.getId());
     }
 
+    // Test out user not found for login attempt
     @Test
     void loginUser_ShouldThrowUserNotFound() {
         when(userRepository.findByEmail(loginDto.getEmail())).thenReturn(Optional.empty());
@@ -112,6 +121,7 @@ public class UserServiceImplTest
         verify(httpSession, never()).setAttribute(anyString(), any());
     }
 
+    // Test out user cannot log in with incorrect credentials
     @Test
     void loginUser_ShouldThrowIncorrectCredentials() {
         when(userRepository.findByEmail(loginDto.getEmail())).thenReturn(Optional.of(user));
@@ -122,6 +132,7 @@ public class UserServiceImplTest
         verify(httpSession, never()).setAttribute(anyString(), any());
     }
 
+    // Check out session invalidates when the user logs out
     @Test
     void logout_ShouldInvalidateSession() {
         MessagePayload result = userService.logout(httpSession);
@@ -130,6 +141,7 @@ public class UserServiceImplTest
         verify(httpSession, times(1)).invalidate();
     }
 
+    // Check out we can get the user that is logged in
     @Test
     void getLoggedInUser_ShouldReturnUserIfLoggedIn() {
         when(httpSession.getAttribute("userId")).thenReturn(1L);
@@ -143,6 +155,7 @@ public class UserServiceImplTest
         assertEquals(user.getId(), result.getId());
     }
 
+    // Check out we cannot get user data when no user is logged in
     @Test
     void getLoggedInUser_ShouldReturnNullIfNotLoggedIn() {
         when(httpSession.getAttribute("userId")).thenReturn(null);

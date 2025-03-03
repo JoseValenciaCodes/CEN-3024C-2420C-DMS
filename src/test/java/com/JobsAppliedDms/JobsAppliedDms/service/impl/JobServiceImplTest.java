@@ -27,9 +27,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
+/* JobServiceImpl Test
+* Unit Tests for the JobService Implementation
+* */
+
 @ExtendWith(MockitoExtension.class)
 public class JobServiceImplTest
 {
+    // Mock dependencies and attributes
     @Mock
     private JobRepository jobRepository;
 
@@ -47,6 +52,7 @@ public class JobServiceImplTest
     private Category category;
     private JobDto jobDto;
 
+    // Set up to mock data to be used for job unit tests
     @BeforeEach
     void setUp() {
         company = new Company();
@@ -75,6 +81,7 @@ public class JobServiceImplTest
         jobDto.setCategoryId(category.getId());
     }
 
+    // Testing out we can successfully get jobs from the system
     @Test
     void getAllJobs_ReturnsListOfJobPayloads() {
         when(jobRepository.findAll()).thenReturn(Arrays.asList(job));
@@ -86,6 +93,7 @@ public class JobServiceImplTest
         verify(jobRepository, times(1)).findAll();
     }
 
+    // Testing out we can get jobs by company
     @Test
     void getJobsOfCompany_ValidCompanyId_ReturnsJobs() {
         when(companyRepository.findById(company.getId())).thenReturn(Optional.of(company));
@@ -98,6 +106,7 @@ public class JobServiceImplTest
         verify(companyRepository, times(1)).findById(company.getId());
     }
 
+    // Testing out we cannot get jobs by company if company is not found
     @Test
     void getJobsOfCompany_InvalidCompanyId_ThrowsException() {
         when(companyRepository.findById(999L)).thenReturn(Optional.empty());
@@ -105,6 +114,7 @@ public class JobServiceImplTest
         assertThrows(CompanyNotFound.class, () -> jobService.getJobsOfCompany(999L));
     }
 
+    // Testing out we can get a job by ID
     @Test
     void getJobById_ValidId_ReturnsJobPayload() {
         when(jobRepository.findById(job.getId())).thenReturn(Optional.of(job));
@@ -115,6 +125,7 @@ public class JobServiceImplTest
         verify(jobRepository, times(1)).findById(job.getId());
     }
 
+    // Testing out we cannot get a job that is not found
     @Test
     void getJobById_InvalidId_ThrowsException() {
         when(jobRepository.findById(999L)).thenReturn(Optional.empty());
@@ -122,6 +133,7 @@ public class JobServiceImplTest
         assertThrows(JobNotFound.class, () -> jobService.getJobById(999L));
     }
 
+    // Testing out we can add jobs
     @Test
     void addJob_ValidData_ReturnsJobPayload() {
         when(companyRepository.findById(company.getId())).thenReturn(Optional.of(company));
@@ -134,6 +146,7 @@ public class JobServiceImplTest
         verify(jobRepository, times(1)).save(any(Job.class));
     }
 
+    // Testing out when we cannot add jobs because of invalid data
     @Test
     void addJob_InvalidCompany_ThrowsException() {
         when(companyRepository.findById(999L)).thenReturn(Optional.empty());
@@ -142,6 +155,7 @@ public class JobServiceImplTest
         assertThrows(CompanyNotFound.class, () -> jobService.addJob(jobDto));
     }
 
+    // Testing out we cannot add job with category not found
     @Test
     void addJob_InvalidCategory_ThrowsException() {
         when(companyRepository.findById(company.getId())).thenReturn(Optional.of(company));
@@ -151,6 +165,7 @@ public class JobServiceImplTest
         assertThrows(CategoryNotFound.class, () -> jobService.addJob(jobDto));
     }
 
+    // Testing out we can update a job
     @Test
     void updateJob_ValidId_ReturnsUpdatedJobPayload() {
         when(jobRepository.findById(job.getId())).thenReturn(Optional.of(job));
@@ -162,12 +177,15 @@ public class JobServiceImplTest
         verify(jobRepository, times(1)).save(job);
     }
 
+    // Testing out we cannot update a job that was not found
     @Test
     void updateJob_InvalidId_ThrowsException() {
         when(jobRepository.findById(999L)).thenReturn(Optional.empty());
 
         assertThrows(JobNotFound.class, () -> jobService.updateJob(999L, jobDto));
     }
+
+    // Testing out we can update a job's company and category
 
     @Test
     void updateJob_ChangeCompanyAndCategory_Success() {
@@ -190,6 +208,7 @@ public class JobServiceImplTest
         verify(jobRepository, times(1)).save(any(Job.class));
     }
 
+    // Testing out we can delete a job
     @Test
     void deleteJob_ValidId_Success() {
         when(jobRepository.findById(job.getId())).thenReturn(Optional.of(job));
@@ -200,6 +219,7 @@ public class JobServiceImplTest
         verify(jobRepository, times(1)).delete(job);
     }
 
+    // Testing out we cannot delete a job that was not found
     @Test
     void deleteJob_InvalidId_ThrowsException() {
         when(jobRepository.findById(999L)).thenReturn(Optional.empty());

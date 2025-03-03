@@ -21,9 +21,14 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/* CompanyServiceImplTest
+ * Testing out the functionality of the Company Service
+ * */
+
 @ExtendWith(MockitoExtension.class)
 public class CompanyServiceImplTest
 {
+    // Mock dependencies and attributes
     @Mock
     private CompanyRepository companyRepository;
 
@@ -33,6 +38,7 @@ public class CompanyServiceImplTest
     private Company testCompany;
     private CompanyDto testCompanyDto;
 
+    // Set up data to test company
     @BeforeEach
     void setUp() {
         testCompany = new Company();
@@ -52,6 +58,7 @@ public class CompanyServiceImplTest
         testCompanyDto.setPriorityLevel(1);
     }
 
+    // Test out we can get all companies
     @Test
     void testGetAllCompanies() {
         when(companyRepository.findAll()).thenReturn(Arrays.asList(testCompany));
@@ -63,6 +70,7 @@ public class CompanyServiceImplTest
         verify(companyRepository, times(1)).findAll();
     }
 
+    // Testing out we can get a company by ID
     @Test
     void testGetCompanyById_Found() {
         when(companyRepository.findById(1L)).thenReturn(Optional.of(testCompany));
@@ -74,6 +82,7 @@ public class CompanyServiceImplTest
         verify(companyRepository, times(1)).findById(1L);
     }
 
+    // Testing out we cannot get a company that was not found
     @Test
     void testGetCompanyById_NotFound() {
         when(companyRepository.findById(2L)).thenReturn(Optional.empty());
@@ -83,6 +92,7 @@ public class CompanyServiceImplTest
         verify(companyRepository, times(1)).findById(2L);
     }
 
+    // Testing out we can add a company
     @Test
     void testAddCompany() {
         when(companyRepository.save(any(Company.class))).thenReturn(testCompany);
@@ -94,6 +104,7 @@ public class CompanyServiceImplTest
         verify(companyRepository, times(1)).save(any(Company.class));
     }
 
+    // Testing out we can update a company
     @Test
     void testUpdateCompanyById_Found() {
         when(companyRepository.findById(1L)).thenReturn(Optional.of(testCompany));
@@ -107,6 +118,7 @@ public class CompanyServiceImplTest
         verify(companyRepository, times(1)).save(any(Company.class));
     }
 
+    // Testing out we cannot update a company that was not found
     @Test
     void testUpdateCompanyById_NotFound() {
         when(companyRepository.findById(2L)).thenReturn(Optional.empty());
@@ -116,6 +128,7 @@ public class CompanyServiceImplTest
         verify(companyRepository, times(1)).findById(2L);
     }
 
+    // Testing out we can delete a company
     @Test
     void testDeleteCompanyById_Found() {
         when(companyRepository.findById(1L)).thenReturn(Optional.of(testCompany));
@@ -129,6 +142,7 @@ public class CompanyServiceImplTest
         verify(companyRepository, times(1)).delete(testCompany);
     }
 
+    // Testing out we cannot delete a company that was not found
     @Test
     void testDeleteCompanyById_NotFound() {
         when(companyRepository.findById(2L)).thenReturn(Optional.empty());
