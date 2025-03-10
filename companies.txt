@@ -1,0 +1,30 @@
+1,Google,Leading tech company specializing in search engines and AI,Mountain View, CA,true,5
+2,Microsoft,Technology corporation known for software and cloud services,Redmond, WA,true,5
+3,Amazon,E-commerce giant with a focus on cloud computing and AI,Seattle, WA,true,5
+4,Facebook,Social media and metaverse technology leader,Menlo Park, CA,true,4
+5,Apple,Innovative consumer electronics and software company,Cupertino, CA,true,5
+6,Tesla,Electric vehicle and renewable energy company,Austin, TX,true,5
+7,IBM,Pioneer in AI, cloud computing, and enterprise software,Armonk, NY,true,4
+8,Netflix,Streaming entertainment service provider,Los Gatos, CA,true,4
+9,Adobe,Creative software company for designers and professionals,San Jose, CA,true,4
+10,Salesforce,Enterprise cloud computing and CRM software provider,San Francisco, CA,true,5
+11,Nvidia,Leader in GPU technology and AI computing,Santa Clara, CA,true,5
+12,Intel,Major semiconductor and microprocessor manufacturer,Santa Clara, CA,true,4
+13,Oracle,Database and enterprise software provider,Austin, TX,true,4
+14,Samsung,Global technology and electronics manufacturer,Seoul, South Korea,true,4
+15,Sony,Entertainment, gaming, and electronics company,Tokyo, Japan,true,3
+16,SpaceX,Innovative space exploration and rocket company,Hawthorne, CA,true,5
+17,Boeing,Aerospace and defense manufacturer,Chicago, IL,true,4
+18,Ford,Automobile manufacturer focused on electric vehicles,Detroit, MI,true,3
+19,Goldman Sachs,Investment banking and financial services firm,New York, NY,true,4
+20,JPMorgan Chase,Multinational financial services corporation,New York, NY,true,5
+21,Stripe,Online payment processing fintech company,San Francisco, CA,true,4
+22,Uber,Ride-sharing and food delivery service provider,San Francisco, CA,true,4
+23,Airbnb,Online marketplace for lodging and vacation rentals,San Francisco, CA,true,3
+24,TikTok,Social media platform focused on short videos,Beijing, China,true,4
+25,Spotify,Music streaming and media services company,Stockholm, Sweden,true,3
+26,Reddit,Online discussion and social aggregation platform,San Francisco, CA,true,3
+27,Pfizer,Pharmaceutical company specializing in vaccines and medicine,New York, NY,true,5
+28,Moderna,Biotechnology company developing mRNA-based vaccines,Cambridge, MA,true,4
+29,Cisco,Networking hardware and cybersecurity solutions provider,San Jose, CA,true,4
+30,Siemens,Industrial manufacturing and automation technology company,Munich, Germany,true,4
